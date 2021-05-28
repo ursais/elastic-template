@@ -4,21 +4,26 @@
 * [Prerequisites](#Prerequisites)
 * [Setup your environment](#Setup-your-environment)
 * [Tests](#Tests)
+* [Deploy](#Deploy)
 * [Issues](#Issues)
 * [Roadmap](#Roadmap)
 
 ## Prerequisites
 
+Run:
+```shell
+sysctl vm.max_map_count=262144
+```
+
 ## Setup your environment
 
 ```shell
-docker-compose build
 docker-compose up
 ```
 
 ## Tests
 
-* 
+*
 
 ## Deploy
 
@@ -31,4 +36,4 @@ Report any issue to this
 
 ## Roadmap
 
-* 
+*
