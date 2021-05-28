@@ -1,8 +1,21 @@
-# Install dependencies
+# Installation
 
-* apt install certbot nginx python3-certbot-nginx ufw
+## Table of Contents
+* [Dependencies](#Dependencies)
+* [Kernel](#Kernel)
+* [UFW](#UFW)
+* [Nginx](#Nginx)
+* [Systemd](#Systemd)
 
-# Kernel
+## Dependencies
+
+```shell
+apt install certbot git nginx python3-certbot-nginx ufw
+cd /opt
+git clone https://github.com/ursais/elastic-template elastic
+```
+
+## Kernel
 
 Run
 ```shell
@@ -14,7 +27,7 @@ and the following at the end of `/etc/sysctl.conf`:
 vm.max_map_count=262144
 ```
 
-# UFW
+## UFW
 
 Run
 
@@ -25,7 +38,7 @@ ufw allow https
 ufw enable
 ```
 
-# Nginx
+## Nginx
 
 * Create a Nginx config file in /etc/nginx/sites-available/elastic.example.com:
 
@@ -51,4 +64,38 @@ cd /etc/nginx/sites-enabled
 ln -s ../sites-available/elastic.example.com .
 nginx -t
 certbot
+```
+
+## Systemd
+
+Create `/etc/systemd/system/elastic.service` with:
+
+```unit file (systemd)
+[Unit]
+Description=Elastic container starter
+After=docker.service network-online.target
+Requires=docker.service network-online.target
+
+[Service]
+WorkingDirectory=/opt/elastic
+Type=oneshot
+RemainAfterExit=yes
+
+ExecStartPre=-/usr/local/bin/docker-compose pull --quiet
+ExecStart=/usr/local/bin/docker-compose -f docker-compose.yml up -d
+
+ExecStop=/usr/local/bin/docker-compose -f docker-compose.yml down
+
+ExecReload=/usr/local/bin/docker-compose pull --quiet
+ExecReload=/usr/local/bin/docker-compose -f docker-compose.yml up -d
+
+[Install]
+WantedBy=multi-user.target
+```
+
+and run:
+```shell
+systemctl daemon-reload
+systemctl enable elastic
+service elastic start
 ```
