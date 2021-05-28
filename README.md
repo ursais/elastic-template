@@ -10,9 +10,14 @@
 
 ## Prerequisites
 
-Run:
+Run
 ```shell
 sysctl vm.max_map_count=262144
+```
+
+and the following at the end of `/etc/sysctl.conf`:
+```unit file (systemd)
+vm.max_map_count=262144
 ```
 
 ## Setup your environment
