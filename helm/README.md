@@ -1,13 +1,24 @@
 # Install dependencies
 
-* apt install certbot nginx python3-certbot-nginx
+* apt install certbot nginx python3-certbot-nginx ufw
+
+# UFW
+
+Run
+
+```shell
+ufw allow ssh
+ufw allow http
+ufw allow https
+ufw enable
+```
 
 # Nginx
 
 * Create a Nginx config file in /etc/nginx/sites-available/elastic.example.com:
 
 ```nginx
-upstream kibana {
+upstream elastic {
     server 127.0.0.1:5601;
 }
 
@@ -16,7 +27,7 @@ server {
     server_name elastic.example.com;
 
     location / {
-        proxy_pass  http://kibana;
+        proxy_pass  http://elastic;
     }
 }
 ```
