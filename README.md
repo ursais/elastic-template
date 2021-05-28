@@ -1,4 +1,4 @@
-# Template Project
+# Elastic/Kibana Template Project
 
 ## Table of Contents
 * [Prerequisites](#Prerequisites)
