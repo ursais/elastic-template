@@ -24,6 +24,8 @@ vm.max_map_count=262144
 
 ```shell
 docker-compose up
+docker exec -it elasticsearch_1 /bin/bash
+./bin/elasticsearch-setup-passwords auto
 ```
 
 ## Tests
