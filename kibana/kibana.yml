@@ -1,0 +1,11 @@
+server.name: kibana
+server.host: "0.0.0.0"
+elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+monitoring.ui.container.elasticsearch.enabled: true
+elasticsearch.username: "kibana_system"
+elasticsearch.password: ""
+monitoring.cluster_alerts.email_notifications.email_address: "support@opensourceintegrators.com"
+xpack.reporting.encryptionKey: ""  # 32 random characters
+xpack.security.encryptionKey: ""   # 32 random characters
+xpack.security.session.idleTimeout: "1h"
+xpack.security.session.lifespan: "30d"
